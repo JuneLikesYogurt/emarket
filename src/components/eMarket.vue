@@ -14,7 +14,7 @@
 				<el-card>
 					<img src="../assets/logo.png" style="width: 20em;">
 					<div class="card-bottom">
-						<h1>色彩雫24色</h1>
+						<h1>{{ name }}</h1>
 						<div class="card-edit">
 							<time>time</time>
 							<span class="edit">查看</span>
@@ -36,6 +36,14 @@ export default {
 			search: ''
 			//goods: []
 		}
+	},
+
+	mounted () {
+		this.showAll()
+	},
+
+	methods: {
+		
 	}
 }
 </script>
