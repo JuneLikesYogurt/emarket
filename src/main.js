@@ -5,13 +5,14 @@ import App from './App'
 import router from './router'
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
-//import axios from 'axios'
-import Api from './axios/index.js'
+// import VeeValidate, {Validator} from 'vee-validate'
+import axios from 'axios'
+// import Api from './api/index.js'
 
 
 Vue.config.productionTip = false
 Vue.use(ElementUI)
-Vue.prototype.$api = Api
+// Vue.prototype.$api = Api
 
 /* eslint-disable no-new */
 new Vue({

@@ -34,13 +34,13 @@ ul {
 a {
 	display: inline-block;
 	text-decoration: none;
-	color: #F5C127;
+	color: #409EFF;
 }
 
 #app {
 	font-family: 'Avenir', Helvetica, Arial, sans-serif;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
-	color: #F5C127;
+	color: #409EFF;
 }
 </style>
