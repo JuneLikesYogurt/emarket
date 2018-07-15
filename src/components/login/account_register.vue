@@ -31,27 +31,21 @@ export default {
 	},
 
 	methods: {
-	 	// 	show () {
-		// 	// this.$api.get('http://localhost:8080/login')
-		// 	// .then(res => {
-		// 	// 	this.name = 'test'
-		// 	// })
-		// 	this.$api.post('/hello', {
-		// 	    // name : 'test'
-		// 	}, response => {
-		// 	     if (response.status >= 200 && response.status < 300) {
-		// 	        console.log(response.data)//请求成功，response为成功信息参数
-		// 	     } else {
-		// 	        console.log(response.message)//请求失败，response为失败信息
-		// 	     }
-		// 	})
-		// }
 		submitRegister() {
 			this.$refs.register.validate((valid) => {
 				if(valid) {
 					//this.register.name = getuuid();
 					this.registerLoading = true;
-					api.accountRegister(this.register).then(res => {
+
+					let sub = {
+						uname: this.register.name,
+						upwd: this.register.password
+					}
+					// var qs = require('qs');
+
+					console.log(sub)
+
+					api.accountRegister(sub).then(res => {
 						this.$message.success('创建用户成功！');
 						this.registerLoading = false;
 					}).catch((res) => {

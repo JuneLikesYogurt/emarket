@@ -7,12 +7,13 @@ import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 // import VeeValidate, {Validator} from 'vee-validate'
 import axios from 'axios'
+// import qs from 'qs'
 // import Api from './api/index.js'
 
 
 Vue.config.productionTip = false
 Vue.use(ElementUI)
-// Vue.prototype.$api = Api
+Vue.prototype.axios = axios		//实现跨域（绑定到vue？）
 
 /* eslint-disable no-new */
 new Vue({
