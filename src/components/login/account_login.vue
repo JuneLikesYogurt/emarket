@@ -10,7 +10,7 @@
 					<el-input v-model="login.password"></el-input>
 				</el-form-item>
 				<el-form-item>
-					<el-button @click="submitLogin()">登录</el-button>
+					<el-button @click="submitLogin">登录</el-button>
 				</el-form-item>
 			</el-form>
 			<h1><router-link to="/agent_login">店铺登录</router-link></h1>
@@ -23,51 +23,30 @@ import { Login } from '../../api/api'
 
 export default {
 	data() {
-		// let checkName = (rule, value, callback) => {
-		// 	if (value === '') {
-		// 		callback(new Error('请输入用户名'))
-		// 	} else {
-		// 		callback()
-		// 	}
-		// }
-		// let checkPass = (rule, value, callback) => {
-		// 	if(value === '') {
-		// 		callback(new Error('请输入密码'))
-		// 	} else {
-		// 		callback()
-		// 	}
-		// }
 		return {
 			login: {
 				name: '',
 				password: ''
 			}
-			// rules: {
-			// 	name: [
-			// 		{ validator: checkName, trigger: 'blur' }
-			// 	],
-			// 	password: [
-			// 		{ validator: checkPass, trigger: 'blur' }
-			// 	]
-			// }
 		}
 	},
 
-	// mounted() {
-	// 	this.show()
-	// },
-
 	methods: {
-		// show () {
-		// 	this.$api.post('http://172.16.8.112:8080/hello')
-		// },
-
 		submitLogin() {
-			this.loading = true;
-			api.accountLogin(this.login).then(res => {
-				this.loading = false;
-			},err => {
-				console.log(err);
+			this.$refs.login.validate((valid) => {
+				if(valid) {
+					this.loginLoading = true;
+
+					let log = {
+						uname: this.register.name,
+						upwd: this.register.password
+					}
+
+					api.accountLogin(log).then(res => {
+						this.$message.success('登录成功');
+						this.loginLoading = false;
+					})
+				}
 			})
 		}
 

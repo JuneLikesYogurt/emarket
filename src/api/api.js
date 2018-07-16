@@ -8,10 +8,10 @@ import axios from 'axios'
 import qs from 'qs'
 
 axios.defaults.timeout = 5000
-// axios.defaults.withCredentials = true
 // axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded'
 axios.defaults.headers.post['Content-Type'] = 'application/json'
 axios.defaults.params = {}
+// axios.defaults.withCredentials = true
 
 // 添加请求拦截器
 axios.interceptors.request.use(function (config) {
@@ -94,20 +94,33 @@ export const oRemove = (url , params) => {
 
 
 export default {
+    //用户登录注册
 	accountRegister(params) {
 		return oPost('http://172.16.8.112:8080/register',params)
-		// return oPost('http://172.16.8.112:8080/hello',params)
 	},
 
+    //店铺登录注册
 	agentRegister(params) {
-		return oPost('http://172.16.8.112:8080',params)
+        // return oPost('http://172.16.8.112:8080/shop_register',params)    //102
+		return oPost('http://192.168.3.186:8080/shop_register',params)    //地下室
 	},
 
+    //首页显示所有信息
 	showAll() {
 		return oGet('http://172.16.8.112:8080')
 	},
-
+    //首页查询
 	searchTitle (params) {
 		return oGet('http://172.16.8.112:8080',params)
-	}
+	},
+
+    //购物车
+    showList(params) {
+        return oGet('http://192.168.3.186:8080',params)
+    },
+
+    //店家新增商品
+    addGood() {
+        return oPost('http://192.168.3.186:8080',params)
+    }
 }

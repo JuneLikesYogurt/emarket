@@ -21,6 +21,8 @@
 </template>
 
 <script>
+import api from '../../api/api.js'
+
 export default {
 	data() {
 		return {
@@ -35,7 +37,31 @@ export default {
 
 	methods: {
 		onSubmit() {
-			console.log('submit!')
+			this.$refs.addGood.validate((valid) => {
+				if(valid) {
+					this.addLoading = true;
+
+					let sid = '1'
+					
+					let add = {
+						// sid: '1',
+						gname: this.addGood.name,
+						price: this.addGood.price,
+						pic: '123456',
+						num: this.addGood.storage,
+						msg: this.addGood.content
+					}
+
+					api.addGood(sid).then(res => {
+						// this.$message.success('新增商品成功')
+						if(!res.data.code) {
+							this.$message.success('新增商品成功')
+						} else {
+							this.$message.warning('新增商品失败')
+						}
+					})
+				}
+			})
 		}
 	}
 }

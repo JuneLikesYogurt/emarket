@@ -27,7 +27,7 @@
 					<el-button
 						siz="mini"
 						type="danger"
-						@click="edit(scope.$index)">删除</el-button>
+						@click="deleteGood(scope.$index)">删除</el-button>
 				</template>
 			</el-table-column>
 
@@ -36,39 +36,61 @@
 </template>
 
 <script>
+import api from '../../api/api.js'
+
 export default {
 	data () {
 		return {
-			list: [{
-				name: '色彩雫24色',
-				shop: '卖狗皮膏药',
-				num: '1',
-				price: '150'
-			}, {
-				name: 'java教材',
-				shop: '卖狗皮膏药',
-				num: '2',
-				price: '88'
+			// list: [{
+			// 	name: '色彩雫24色',
+			// 	shop: '卖狗皮膏药',
+			// 	num: '1',
+			// 	price: '150'
+			// }, {
+			// 	name: 'java教材',
+			// 	shop: '卖狗皮膏药',
+			// 	num: '2',
+			// 	price: '88'
 
-			}, {
-				name: 'java教材',
-				shop: '卖狗皮膏药',
-				num: '2',
-				price: '88'
+			// }, {
+			// 	name: 'java教材',
+			// 	shop: '卖狗皮膏药',
+			// 	num: '2',
+			// 	price: '88'
 
-			}, {
-				name: 'java教材',
-				shop: '卖狗皮膏药',
-				num: '2',
-				price: '88'
+			// }, {
+			// 	name: 'java教材',
+			// 	shop: '卖狗皮膏药',
+			// 	num: '2',
+			// 	price: '88'
 
-			}, {
-				name: 'java教材',
-				shop: '卖狗皮膏药',
-				num: '2',
-				price: '88'
+			// }, {
+			// 	name: 'java教材',
+			// 	shop: '卖狗皮膏药',
+			// 	num: '2',
+			// 	price: '88'
 
-			}]
+			// }]
+			list: ''
+		}
+	},
+
+	mounted () {
+		this.showList()
+	},
+
+	methods: {
+		showList () {
+			this.loading = true;
+
+			let uid = '1'
+
+			api.showList(uid).then(res => {
+				this.goods = res.datas;
+				this.loading = false;
+			},err => {
+				console.log(err);
+			})
 		}
 	}
 }

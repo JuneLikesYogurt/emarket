@@ -102,7 +102,8 @@ export default {
 		// }
 		getSearch () {
 			this.loading = true;
-			api.searchTitle(this.keyWords).then(res => {
+			let key = thie.keyWords
+			api.searchTitle(key).then(res => {
 				this.goods = res.datas;
 				this.$message.success('查询成功');
 				this.loading = false;

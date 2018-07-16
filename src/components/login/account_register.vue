@@ -34,16 +34,12 @@ export default {
 		submitRegister() {
 			this.$refs.register.validate((valid) => {
 				if(valid) {
-					//this.register.name = getuuid();
 					this.registerLoading = true;
 
 					let sub = {
 						uname: this.register.name,
 						upwd: this.register.password
 					}
-					// var qs = require('qs');
-
-					console.log(sub)
 
 					api.accountRegister(sub).then(res => {
 						this.$message.success('创建用户成功！');

@@ -32,9 +32,14 @@ export default {
 		submitRegister() {
 			this.$refs.register.validate((valid) => {
 				if(valid) {
-					//this.register.name = getuuid();
 					this.registerLoading = true;
-					api.agentRegister(this.register).then(res => {
+
+					let sub = {
+						sname: this.register.name,
+						spwd: this.register.password
+					}
+
+					api.agentRegister(sub).then(res => {
 						this.$message.success('创建店铺成功！');
 						this.registerLoading = false;
 					}).catch((res) => {
