@@ -104,8 +104,8 @@ export default {
 
     //店铺登录注册
 	agentRegister(params) {
-        // return oPost('http://172.16.8.112:8080/shop_register',params)    //102
-		return oPost('http://192.168.3.186:8080/shop_register',params)    //地下室
+         return oPost('http://172.16.8.112:8080/shop_register',params)    //102
+		//return oPost('http://192.168.3.186:8080/shop_register',params)    //地下室
 	},
     agentLogin(params) {
         return oPost('http://172.16.8.112:8080/shop_log_in',params)   

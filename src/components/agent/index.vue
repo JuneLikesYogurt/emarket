@@ -61,7 +61,7 @@ export default {
 		shop_goods () {
 			this.loading = true;
 			let uid = {
-				id: '1'
+				id: '2'
 			}
 			api.shop_goods(uid).then(res => {
 				this.list = []

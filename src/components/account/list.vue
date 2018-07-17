@@ -63,7 +63,7 @@ export default {
 			this.loading = true;
 
 			let id = {
-				id: '2'
+				id: '4'
 			}
 
 			api.showList(id).then(res => {

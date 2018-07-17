@@ -51,7 +51,7 @@ export default {
 					//let sid = '1'
 					
 					let add = {
-						sid: '1',
+						sid: '2',
 						gname: this.addGood.name,
 						price: this.addGood.price,
 						pic: '123456',

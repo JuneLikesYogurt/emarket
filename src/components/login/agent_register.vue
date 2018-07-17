@@ -15,7 +15,7 @@
 					<el-input v-model="register.name"></el-input>
 				</el-form-item>
 				<el-form-item label="密码" prop="password">
-					<el-input v-model="register.password"></el-input>
+					<el-input type="password" v-model="register.password"></el-input>
 				</el-form-item>
 				<el-form-item>
 					<el-button @click="submitRegister">注册</el-button>

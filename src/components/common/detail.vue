@@ -63,7 +63,7 @@ export default {
 		show () {
 			this.loading = true;
 			let id = {
-				id: '3'
+				id: '7'
 			}
 			api.detail(id).then(res => {
 					this.name = res.data.model.gname,
@@ -79,8 +79,8 @@ export default {
 		addToList () {
 			this.loading = true;
 			let id = {
-				gid: '3',
-				uid: '2'
+				gid: '7',
+				uid: '4'
 			}
 
 			api.addToList(id).then(res => {
@@ -90,8 +90,8 @@ export default {
 		directBuy () {
 			this.loading = true;
 			let id = {
-				gid: '3',
-				uid: '2'
+				gid: '7',
+				uid: '4'
 			}
 
 			api.directBuy(id).then(res => {

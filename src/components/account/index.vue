@@ -53,9 +53,10 @@ export default {
 		account_bought () {
 			this.loading = true;
 			let uid = {
-				id: '2'
+				id: '4'
 			}
 			api.account_bought(uid).then(res => {
+				this.name = res.data.user.uname
 				this.list = []
 				res.data.List.forEach((item) => {
 					this.list.push({
@@ -64,7 +65,6 @@ export default {
 						price: item.price
 					})
 				})
-				this.name = res.data.user.uname
 			})
 		}
 	}
