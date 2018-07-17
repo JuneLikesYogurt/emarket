@@ -1,7 +1,9 @@
 <template>
 	<div id="app">
 		<!-- <img src="./assets/logo.png"> -->
-		<app-head></app-head>
+		<!-- <app-head></app-head> -->
+		<!-- <router-view @userSignIn="userSignIn">
+		</router-view> -->
 		<router-view/>
 	</div>
 </template>
@@ -10,18 +12,17 @@
 import AppHead from '@/components/common/head'
 
 export default {
-	name: 'App',
+	// name: 'App',
 
-	components: {
-		AppHead
-	}
-
+	// components: {
+	// 	AppHead
+	// }
 }
 </script>
 
 <style>
 body, html {
-	min-width: 900px;
+	min-width: 1000px;
 	margin: 0;
 	padding: 0;
 	font-size: 62.5%;

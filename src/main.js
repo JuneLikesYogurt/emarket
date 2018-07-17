@@ -13,7 +13,22 @@ import axios from 'axios'
 
 Vue.config.productionTip = false
 Vue.use(ElementUI)
-Vue.prototype.axios = axios		//实现跨域（绑定到vue？）
+Vue.prototype.axios = axios		
+
+router.beforeEach((to, from, next) => {
+    if (to.matched.some(v => v.meta.requireAuth)) {
+        if (localStorage.getItem(tokenStr)) {
+            next()
+        } else {
+            next({
+                path: '/account_login',
+                query: {redirect: to.fullPath}
+            })
+        }
+    } else {
+        next()
+    }
+})
 
 /* eslint-disable no-new */
 new Vue({

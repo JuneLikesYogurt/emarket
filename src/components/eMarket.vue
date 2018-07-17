@@ -1,32 +1,42 @@
 <template>
 	<div class="main">
-		<div class="goods_search">
-			<div>
-				<el-input
-					placeholder="请输入内容"
-					prefix-icon="el-icon-search"
-					v-model="keyWords">
-				</el-input>
-				<el-button  @click="getSearch">搜索</el-button>
+		<div class="header">
+			<h1><router-link to="/">Emarket</router-link></h1>
+			<div class="nav_login" v-if="!hasLoginIn">
+				<h2><router-link to="/account_login">登录</router-link></h2>
+				<h2><router-link to="/account_register">注册</router-link></h2>
+			</div>
+			<div class="person" v-else>
+				<h2><router-link to="/account">个人中心</router-link></h2>
 			</div>
 		</div>
+		<div class="main-content">
+			<div class="goods_search">
+				<div>
+					<el-input
+						placeholder="请输入内容"
+						prefix-icon="el-icon-search"
+						v-model="KeyWords">
+					</el-input>
+					<el-button  @click="getSearch">搜索</el-button>
+				</div>
+			</div>
 
-		<div class="content">
-			<div class="content-card" v-for="(good, i) in goods" :key="i">
-				<el-card>
-					<img src="../assets/logo.png" style="width: 20em;">
-					<div class="card-bottom">
-						<h1>{{ good.name }}</h1>
-						<div class="card-edit">
-							<span class="price">{{ good.price }}</span>
-							<span class="edit">查看</span>
+			<div class="content">
+				<div class="content-card" v-for="(good, i) in goods" :key="i">
+					<el-card>
+						<img src="../assets/logo.png" style="width: 20em;">
+						<div class="card-bottom">
+							<span class="name">{{ good.name }}</span class="name">
+							<div class="card-edit">
+								<span class="price">{{ good.price }}</span>
+								<span class="edit" @click="getDescribe">查看</span>
+							</div>
 						</div>
-					</div>
-				</el-card>
+					</el-card>
+				</div>
 			</div>
 		</div>
-
-
 	</div>
 </template>
 
@@ -37,79 +47,75 @@ export default {
 
 	data() {
 		return {
-			keyWords: '',
+			KeyWords: '',
 			search: '',
-			goods: [
-				// {name: 'aaa',price: '50'},
-				// {name: 'bbb',price: '50'},
-				// {name: 'c',price: '50'},
-				// {name: 'd',price: '50'},
-				// {name: 'd',price: '50'},
-				// {name: 'd',price: '50'}
-			]
+			goods: [],
+			uid: '',
+			hasLoginIn: false
 		}
 	},
 
 	mounted () {
-		this.All()
+		this.All(),
+		this.getId()
 	},
 
 	methods: {
-		// All() {
-		// 	//查询所有数据
-		// 	// let arr = []
-		// 	// res.data.List.forEach((item) => {
-		// 	// 	arr.push({
-		// 	// 		name: item.name,
-		// 	// 		price: item.price
-		// 	// 	})
-		// 	// })
+		getId () {
+			let uid = this.$route.query.uid
+			console.log(uid)
+			if(uid) {
+				this.hasLoginIn = true
+			}
+		},
 
-		// 	// this.$api ({
-		// 	// 	method: 'post',
-		// 	// 	url: 'http://172.16.8.112:8080/mainpage',
-		// 	// 	data: {
-		// 	// 		name: item.name,
-		// 	// 		price: item.name
-		// 	// 	}
-		// 	// })
-		// 	this.$api.post(
-		// 		'http://172.16.8.112:8080/mainpage'
-		// 	//	{ name: item.name,price: item.price }
-		// 	).then((res) => {
-		// 		this.good.name = res.data.name,
-		// 		this.good.price = res.data.price,
-		// 		console.log(res.data)
-		// 	}).catch((error) => {
-		// 		console.log(error)
-		// 	})
-		// },
 		All () {
 			this.loading = true;
 			api.showAll().then(res => {
-				this.goods = res.datas;
+				let arr = []
+				res.data.List.forEach((good) => {
+					arr.push({
+						name: good.gname,
+						price: good.price
+						// pic: good.pic
+					})
+				})
+				this.goods = arr
+				// this.$message.success('查询成功')
 				this.loading = false;
 			},err => {
 				console.log(err);
 			})
 		},
 
-		// getSearch() {
-		// 	this.$api.post('http://172.16.8.112:8080/title')
-		// 	.then((res) => {
-		// 		message: this.keyWords
-		// 	})		
-		// }
 		getSearch () {
 			this.loading = true;
-			let key = thie.keyWords
+			let key = {
+				str: this.KeyWords
+			}
 			api.searchTitle(key).then(res => {
-				this.goods = res.datas;
-				this.$message.success('查询成功');
+				if(!res.meta.code) {
+					this.goods = []
+					res.data.List.forEach((item) => {
+						this.goods.push({
+							name: item.gname,
+							price: item.price
+							// pic: item.pic
+						})
+					})
+					this.$message.success('查询成功')
+				} else {
+					this.$message.warning('查询失败')
+				}
 				this.loading = false;
 			},err => {
+				this.$message.warning('查询失败')
 				console.log(err);
 			})
+		},
+
+		getDescribe () {
+			this.$router.push({ path:'/detail', query: {gid: res.data.gid } })
 		}
 	}
 }
@@ -117,9 +123,34 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="scss" type="text/css">
-.main {
+.main-content {
 	width: 80%;
 	margin: 0 auto;
+}
+
+.header {
+	padding: 0 8em;
+	margin-bottom: 6em;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+
+	h1 {
+		font-size: 5em;
+		display: inline-block;
+	}
+
+	.nav_login, .person {
+		display: inline-block;
+		font-size: 2em;
+		margin-top: 1em;
+	}
+	.nav_login {
+		h2 {
+			margin-right: 4em;
+			display: inline-block;
+		}
+	}
 }
 
 .goods_search {
@@ -154,10 +185,11 @@ export default {
 	.card-bottom {
 		margin-top: 1em;
 	}
-	h1 {
+	.name {
 		font-size: 3.2em;
 	}
 	.card-edit {
+		margin-top: 0.5em;
 		font-size: 2.4em;
 		display: flex;
 		flex-direction: row;

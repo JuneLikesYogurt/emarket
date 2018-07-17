@@ -1,67 +1,103 @@
 <template>
 	<div class="account">
-		<div class="person_mes">
-			<p>亲爱的<span>{{ name }}</span>你好哇!</p>
+		<div class="header">
+			<h1><router-link to="/">Emarket</router-link></h1>
+			<div class="person">
+				<h2><router-link to="/account">个人中心</router-link></h2>
+			</div>
 		</div>
-
-		<el-button><router-link to="/list">进入购物车</router-link></el-button>
 		
-		<el-table
-			:data="list"
-			stripe>
-			<el-table-column
-				prop="name"
-				label="商品名称">
-			</el-table-column>
-			<el-table-column
-				prop="shop"
-				label="店铺名">
-			</el-table-column>
-			<el-table-column
-				prop="price"
-				label="价格">
-			</el-table-column>
-		</el-table>
+		<div class="account_content">
+			<div class="person_mes">
+				<p>亲爱的<span>{{ name }}</span>你好哇!</p>
+			</div>
+
+			<el-button><router-link to="/list">进入购物车</router-link></el-button>
+			
+			<el-table
+				:data="list"
+				stripe>
+				<el-table-column
+					prop="name"
+					label="商品名称">
+				</el-table-column>
+				<el-table-column
+					prop="shop"
+					label="店铺名">
+				</el-table-column>
+				<el-table-column
+					prop="price"
+					label="价格">
+				</el-table-column>
+			</el-table>
+		</div>
 	</div>
 </template>
 
 <script>
+import api from '../../api/api.js'
+
 export default {
 	data() {
 		return {
-			list: [{
-				name: '色彩雫24色',
-				shop: '卖狗皮膏药',
-				price: '150'
-			}, {
-				name: 'java教材',
-				shop: '卖狗皮膏药',
-				price: '88'
+			list: [],
+			name: ''
+		}
+	},
 
-			}, {
-				name: 'java教材',
-				shop: '卖狗皮膏药',
-				price: '88'
+	mounted() {
+		this.account_bought()
+	},
 
-			}, {
-				name: 'java教材',
-				shop: '卖狗皮膏药',
-				price: '88'
-
-			}, {
-				name: 'java教材',
-				shop: '卖狗皮膏药',
-				price: '88'
-
-			}],
-			name: '娃哈哈'
+	methods: {
+		account_bought () {
+			this.loading = true;
+			let uid = {
+				id: '2'
+			}
+			api.account_bought(uid).then(res => {
+				this.list = []
+				res.data.List.forEach((item) => {
+					this.list.push({
+						name: item.gname,
+						shop: item.sname,
+						price: item.price
+					})
+				})
+				this.name = res.data.user.uname
+			})
 		}
 	}
 }
 </script>
 
 <style lang="scss" type="text/css">
-.account {
+.header {
+	padding: 0 8em;
+	margin-bottom: 6em;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+
+	h1 {
+		font-size: 5em;
+		display: inline-block;
+	}
+
+	.nav_login, .person {
+		display: inline-block;
+		font-size: 2em;
+		margin-top: 1em;
+	}
+	.nav_login {
+		h2 {
+			margin-right: 4em;
+			display: inline-block;
+		}
+	}
+}
+
+.account_content {
 	width: 60%;
 	margin: 0 auto;
 

@@ -18,6 +18,15 @@ export default {
 			hasLoginIn: false
 		}
 	}
+	// created() {
+	// 	this.getParams()
+	// },
+	// methods: {
+	// 	getParams () {
+	// 		var routerparams = this.$route.params;
+	// 		console.log(routerparams)
+	// 	}
+	// }
 }
 </script>
 
